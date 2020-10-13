@@ -2,7 +2,6 @@ package com.example.calculator;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final char MULTIPLICATION = '*';
 
-    private static final char DIVISION = '/';
+    private static final char DIVISION = '÷';
 
     private List<Double> values;
 
@@ -74,16 +73,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/digital-7.ttf");
+
         decimalFormat = new DecimalFormat("#.##########");
         values = new ArrayList<>();
         operators = new ArrayList<>();
         newOperand = "";
         isNewOperation = true;
 
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/digital-7.ttf");
         textView = findViewById(R.id.textView);
         textView.setTypeface(tf);
-
         textView.setText("");
 
         buttonZero = findViewById(R.id.buttonZero);
@@ -107,7 +106,20 @@ public class MainActivity extends AppCompatActivity {
         buttonDot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setText(textView.getText() + ".");
+                if (!isNewOperation) {
+                    isNewOperation = true;
+                    textView.setText("");
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
+                }
+
+                if (newOperand.equals("")) {
+                    newOperand = "0.";
+                    textView.setText(textView.getText() + "0.");
+                } else {
+                    newOperand += ".";
+                    textView.setText(textView.getText() + ".");
+                }
             }
         });
 
@@ -117,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!isNewOperation) {
                     isNewOperation = true;
                     textView.setText("");
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
                 }
 
                 newOperand += "0";
@@ -130,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!isNewOperation) {
                     isNewOperation = true;
                     textView.setText("");
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
                 }
 
                 newOperand += "1";
@@ -143,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!isNewOperation) {
                     isNewOperation = true;
                     textView.setText("");
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
                 }
 
                 newOperand += "2";
@@ -156,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!isNewOperation) {
                     isNewOperation = true;
                     textView.setText("");
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
                 }
 
                 newOperand += "3";
@@ -169,6 +189,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!isNewOperation) {
                     isNewOperation = true;
                     textView.setText("");
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
                 }
 
                 newOperand += "4";
@@ -182,6 +204,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!isNewOperation) {
                     isNewOperation = true;
                     textView.setText("");
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
                 }
 
                 newOperand += "5";
@@ -195,6 +219,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!isNewOperation) {
                     isNewOperation = true;
                     textView.setText("");
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
                 }
 
                 newOperand += "6";
@@ -208,6 +234,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!isNewOperation) {
                     isNewOperation = true;
                     textView.setText("");
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
                 }
 
                 newOperand += "7";
@@ -221,6 +249,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!isNewOperation) {
                     isNewOperation = true;
                     textView.setText("");
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
                 }
 
                 newOperand += "8";
@@ -234,6 +264,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!isNewOperation) {
                     isNewOperation = true;
                     textView.setText("");
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
                 }
 
                 newOperand += "9";
@@ -244,11 +276,21 @@ public class MainActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!newOperand.equals("")) {
-                    values.add(Double.parseDouble(newOperand));
+                if (!isNewOperation) {
+                    isNewOperation = true;
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
+
+                    values.add(Double.parseDouble(textView.getText().toString()));
                     operators.add(ADDITION);
                     textView.setText(textView.getText().toString() + ADDITION);
-                    newOperand = "";
+                } else {
+                    if (!newOperand.equals("")) {
+                        values.add(Double.parseDouble(newOperand));
+                        operators.add(ADDITION);
+                        textView.setText(textView.getText().toString() + ADDITION);
+                        newOperand = "";
+                    }
                 }
             }
         });
@@ -256,11 +298,21 @@ public class MainActivity extends AppCompatActivity {
         buttonSubtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!newOperand.equals("")) {
-                    values.add(Double.parseDouble(newOperand));
+                if (!isNewOperation) {
+                    isNewOperation = true;
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
+
+                    values.add(Double.parseDouble(textView.getText().toString()));
                     operators.add(SUBTRACTION);
                     textView.setText(textView.getText().toString() + SUBTRACTION);
-                    newOperand = "";
+                } else {
+                    if (!newOperand.equals("")) {
+                        values.add(Double.parseDouble(newOperand));
+                        operators.add(SUBTRACTION);
+                        textView.setText(textView.getText().toString() + SUBTRACTION);
+                        newOperand = "";
+                    }
                 }
             }
         });
@@ -268,11 +320,21 @@ public class MainActivity extends AppCompatActivity {
         buttonMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!newOperand.equals("")) {
-                    values.add(Double.parseDouble(newOperand));
+                if (!isNewOperation) {
+                    isNewOperation = true;
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
+
+                    values.add(Double.parseDouble(textView.getText().toString()));
                     operators.add(MULTIPLICATION);
                     textView.setText(textView.getText().toString() + MULTIPLICATION);
-                    newOperand = "";
+                } else {
+                    if (!newOperand.equals("")) {
+                        values.add(Double.parseDouble(newOperand));
+                        operators.add(MULTIPLICATION);
+                        textView.setText(textView.getText().toString() + MULTIPLICATION);
+                        newOperand = "";
+                    }
                 }
             }
         });
@@ -280,11 +342,21 @@ public class MainActivity extends AppCompatActivity {
         buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!newOperand.equals("")) {
-                    values.add(Double.parseDouble(newOperand));
+                if (!isNewOperation) {
+                    isNewOperation = true;
+                    values = new ArrayList<>();
+                    operators = new ArrayList<>();
+
+                    values.add(Double.parseDouble(textView.getText().toString()));
                     operators.add(DIVISION);
                     textView.setText(textView.getText().toString() + DIVISION);
-                    newOperand = "";
+                } else {
+                    if (!newOperand.equals("")) {
+                        values.add(Double.parseDouble(newOperand));
+                        operators.add(DIVISION);
+                        textView.setText(textView.getText().toString() + DIVISION);
+                        newOperand = "";
+                    }
                 }
             }
         });
@@ -292,11 +364,16 @@ public class MainActivity extends AppCompatActivity {
         buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                values.add(Double.parseDouble(newOperand));
-                textView.setText(computeCalculation());
-                values = new ArrayList<>();
-                operators = new ArrayList<>();
-                newOperand = "";
+                if (isNewOperation) {
+                    values.add(Double.parseDouble(newOperand));
+                    textView.setText(computeCalculation());
+                    newOperand = "";
+                } else {
+                    values.add(values.get(values.size() - 1));
+                    operators.add(operators.get(operators.size() - 1));
+                    textView.setText(computeCalculation());
+                    newOperand = "";
+                }
             }
         });
 
@@ -335,7 +412,7 @@ public class MainActivity extends AppCompatActivity {
                     result = 1;
             }
 
-            return String.valueOf(result);
+            return decimalFormat.format(result);
         } else {
             for (int i = 1; i < values.size(); i++) {
                 if (operators.get(i - 1) == ADDITION)
@@ -354,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            return String.valueOf(result);
+            return decimalFormat.format(result);
         }
     }
 }
