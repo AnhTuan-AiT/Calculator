@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/oval_background"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="G"
+        android:textColor="@color/white"
+        android:textSize="26dp" />
+
+    <TextView
+        android:id="@+id/sender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/avatar"
+        android:layout_toLeftOf="@id/mail_time"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text=""
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/mail_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sender"
+        android:layout_toRightOf="@id/avatar"
+        android:layout_toLeftOf="@id/mail_time"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text=""
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/mail_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mail_title"
+        android:layout_toRightOf="@id/avatar"
+        android:layout_toLeftOf="@id/mail_time"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text=""
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/mail_time"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="1dp"
+        android:drawableBottom="@drawable/unstared"
+        android:text="Nov 3"
+        android:textSize="12dp" />
+
+</RelativeLayout>
