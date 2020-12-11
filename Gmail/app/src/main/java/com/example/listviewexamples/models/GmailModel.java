@@ -63,7 +63,7 @@ public class GmailModel {
         this.time = time;
     }
 
-    public boolean isiStarred() {
+    public boolean isStarred() {
         return iStarred;
     }
 
